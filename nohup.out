@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "deployoms.py", line 1, in <module>
+    from flask import Flask,render_template,flash,request,redirect,url_for,Markup
+ImportError: No module named flask
+Traceback (most recent call last):
+  File "/root/mypython/deployomsh5/deployoms/deployoms.py", line 1, in <module>
+    from flask import Flask,render_template,flash,request,redirect,url_for,Markup
+ImportError: No module named flask
+ * Serving Flask app "deployoms" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:4901/ (Press CTRL+C to quit)
+172.16.1.16 - - [19/Oct/2018 19:19:12] "GET / HTTP/1.1" 200 -
+172.16.1.16 - - [19/Oct/2018 19:20:16] "POST /upload HTTP/1.1" 302 -
+172.16.1.16 - - [19/Oct/2018 19:20:16] "GET / HTTP/1.1" 200 -
+172.16.1.16 - - [19/Oct/2018 19:20:57] "POST /upload HTTP/1.1" 302 -
+172.16.1.16 - - [19/Oct/2018 19:20:57] "GET / HTTP/1.1" 200 -
+172.16.1.16 - - [20/Oct/2018 09:18:20] "GET / HTTP/1.1" 200 -
+172.16.1.16 - - [20/Oct/2018 09:18:21] "GET /static/style.css HTTP/1.1" 200 -

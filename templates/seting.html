@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h2>Seting</h2>
+  <form action="{{ url_for('seting') }}" method=post>
+    <dl>
+      <dt>DBPath:<input type=text size=50 name=dbpath value={{ path }}>
+      <dd><input type=submit value=Set>
+    </dl>
+  </form>
+{% endblock %}
