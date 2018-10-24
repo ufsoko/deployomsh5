@@ -66,8 +66,7 @@ def upload():
             if num == 0:
                 flash("No release environment was selected")
             else:
-                #info = runcmd(num,runname)
-                info = "test"+runname
+                info = runcmd(num,runname)
                 flash(Markup(info))
             return redirect(url_for('index'))
         else:
