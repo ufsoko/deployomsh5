@@ -1,6 +1,7 @@
 from flask import Flask,render_template,flash,request,redirect,url_for,Markup
 from werkzeug import secure_filename
 import subprocess,os,shutil
+import platform
 
 
 app = Flask(__name__)
@@ -8,13 +9,13 @@ app.secret_key='ldx'
 
 ALLOWED_EXTENSIONS = set(['zip'])
 
-def runcmd(num):
+def runcmd(num,runname):
     if num == 1:
-        comm = "salt '172.16.124.21' state.sls omsh5"
+        comm = "salt '172.16.124.21' state.sls " + runname
     elif num == 10:
-        comm = "salt '172.16.124.11' state.sls omsh5"
+        comm = "salt '172.16.124.11' state.sls " + runname
     elif num == 11:
-        comm = "salt -N omsh5 state.sls omsh5"
+        comm = "salt -N omsh5 state.sls " + runname
     else:
         return "Error"
     p = subprocess.Popen(comm,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
@@ -37,6 +38,16 @@ def upload():
         f = request.files['file']
         test = request.form.get('test')
         dev = request.form.get('dev')
+        pt = request.form.get('pt')
+        name="dist.zip"
+        runname="omsh5v1"
+        if pt:
+            if "oms" in pt:
+                name="distoms.zip"
+                runname = "omsh5v1"
+            else:
+                name = "distxqq.zip"
+                runname = "xqqh5v1"
         num = 0
         if test:
             num = num + 1
@@ -46,12 +57,17 @@ def upload():
             basepath = os.path.dirname(__file__)
             upload_path = os.path.join(basepath, 'static','uploads', secure_filename(f.filename))
             f.save(upload_path)
-            path = os.path.join("/", "data", "data", "salt", "file", "files", "dist.zip")
+            if "Windows" in platform.system():
+                path = os.path.join("c:\\", name)
+            else:
+                path = os.path.join("/", "data", "data", "salt", "file", "files", name)
+            print path
             shutil.move(upload_path, path)
             if num == 0:
                 flash("No release environment was selected")
             else:
-                info = runcmd(num)
+                #info = runcmd(num,runname)
+                info = "test"+runname
                 flash(Markup(info))
             return redirect(url_for('index'))
         else:
@@ -64,5 +80,5 @@ def index():
     return render_template('show_entries.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=4901)
+    app.run(port=4901)
     pass
